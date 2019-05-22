@@ -32,7 +32,7 @@ import (
 )
 
 const (
-	closureCompilerVersion = "20170409"
+	closureCompilerVersion = "20190325"
 	closureCompilerZip     = "compiler-" + closureCompilerVersion + ".zip"
 	closureCompilerJar     = "closure-compiler-v" + closureCompilerVersion + ".jar"
 	closureCompilerURL     = "http://dl.google.com/closure-compiler/" + closureCompilerZip
@@ -178,17 +178,4 @@ func main() {
 		return
 	}
 
-	fmt.Println("\nGenerating optimized JS runfiles...")
-	runCommand("java", "-jar",
-		path.Join(closureCompilerDir, closureCompilerJar),
-		"--closure_entry_point", "historian.upload",
-		"--js", "js/*.js",
-		"--js", path.Join(closureLibraryDir, "closure/goog/base.js"),
-		"--js", path.Join(closureLibraryDir, "closure/goog/**/*.js"),
-		"--only_closure_dependencies",
-		"--generate_exports",
-		"--js_output_file", path.Join(wd, compiledDir, "historian-optimized.js"),
-		"--output_manifest", path.Join(wd, compiledDir, "manifest.MF"),
-		"--compilation_level", "SIMPLE_OPTIMIZATIONS",
-	)
 }
